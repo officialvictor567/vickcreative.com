@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vick Creative - Victor Audu</title>
+    <!-- AOS for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <!-- Font Awesome for social icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+    :root {
+      --bg: #0f0f0f;
+      --text: #e0e0e0;
+      --accent: #ff6b00; /* orange */
+      --card: #1a1a1a;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+    }
+    a { color: var(--accent); text-decoration: none; }
+
+    /* Navbar / Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: rgba(15, 15, 15, 0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    /* Hamburger (top-right on mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Mobile Menu (slides from right) */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 380px;
+      height: 100vh;
+      background: rgba(15, 15, 15, 0.98);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 999;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      font-weight: 500;
+      color: white;
+      margin: 2.2rem 0;
+      transition: color 0.3s, transform 0.3s;
+      gap: 12px;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+      transform: translateX(10px);
+    }
+
+    /* Hero (example) */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5%;
+    }
+    .hero-content h1 { font-size: 4rem; margin: 0; }
+    .hero-content p { font-size: 1.4rem; max-width: 600px; margin: 1.5rem auto; }
+
+    /* Services (example) */
+    .services {
+      padding: 6rem 5%;
+      background: var(--card);
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: #222;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.4s;
+    }
+    .card:hover { transform: translateY(-10px); }
+
+    /* Footer */
+    footer {
+      background: #111;
+      padding: 2rem 5%;
+      text-align: center;
+      border-top: 1px solid #333;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    footer a {
+      color: var(--accent);
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-content h1 { font-size: 3rem; }
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+      </head>
+      <body>
+        <header>
+          <div class="logo">Vick Creative</div>
+          <ul class="nav-links">
+            <li>
+              <a href="#services">Services</a>
+            </li>
+            <li>
+              <a href="#about">About Me</a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/profile.php?id=61586215537833" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook-f">
+                </i> Facebook
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/victor.com008" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram">
+                </i> Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/+2349038163067" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp">
+                </i> WhatsApp
+              </a>
+            </li>
+            <li>
+              <a href="tel:+2349038163067">Contact</a>
+            </li>
+            <li>
+              <a href="mailto:auduvictor2008@gmail.com">Gmail</a>
+            </a>
+            <i class="fas fa-envelope">
+            </i>
+          </li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span>
+          </span>
+          <span>
+          </span>
+          <span>
+          </span>
+        </div>
+      </header>
+      <div class="mobile-menu" id="mobileMenu">
+        <ul>
+          <li>
+            <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#about">About Me</a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/profile.php?id=61586215537833" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-facebook-f">
+              </i> Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/victor.com008" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-instagram">
+              </i> Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/+2349038163067" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-whatsapp">
+              </i> WhatsApp
+            </a>
+          </li>
+          <a href="tel:+2349038163067">Contact</a>
+        </li>
+        <li>
+          <a href="mailto: auduvictor2008@gmail.com">
+            <i class="fas fa-envelope">
+            </i> Email
+          </a>
+        </li>
+      </ul>
+    </div>
+    <main>
+      <!-- Hero -->
+      <section id="hero" data-aos="fade-up">
+        <div class="hero-content">
+          <h1>Hi, I'm Victor 👋</h1>
+          <p>Full-Stack Developer, a Video Editor and a Graphic Designer</p>
+          <p>I craft digital solutions that combine modern tech with beautiful, user-focused design.</p>
+        </div>
+      </section>
+      <!-- Services -->
+      <section class="services" id="services">
+        <h2 data-aos="fade-up">My Services</h2>
+        <div class="cards">
+          <div class="card" data-aos="zoom-in" data-aos-delay="100">
+            <h3>Web Development</h3>
+            <p>Custom website for business and private organizations with modern tech for top performance.</p>
+          </div>
+          <div class="card" data-aos="zoom-in" data-aos-delay="200">
+            <h3>Graphic Design</h3>
+            <p>I Design high quality and eye catching professional designs at Affordable Price</p>
+          </div>
+          <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h3>Video Editing</h3>
+            <p>We edit Top Notch video for our customer's taste and up-to standard Editing</p>
+          </div>
+        </div>
+      </section>
+      <!-- You can add more sections here -->
+    </main>
+    <!-- Copyright footer -->
+    <footer>
+      <p>&copy; 2026 Vick Creative - Victor Audu. All rights reserved.</p>
+    </footer>
+    <!-- AOS + Hamburger JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out'
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+  </body>
+</html>
